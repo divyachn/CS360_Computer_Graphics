@@ -13,8 +13,8 @@
 #define gravity 9.8
 #define PI 3.1415926535
 #define UNIT_TIME 0.05
-#define MAX_SPEED 100
-#define MIN_SPEED 10
+#define MAX_SPEED 120
+#define MIN_SPEED 25
 #define SPEED_ONE_UNIT 5
 #define NOZZLE_SPIN 5
 #define MAX_ANGLE 85
@@ -39,6 +39,20 @@ std::string intToString(int n){
     temp=temp/10;
   }
   return s;
+}
+
+void drawCircle(float x, float y, float z){
+  float r=2.0;
+  glPushMatrix();
+    glTranslatef(x,y,z);
+    int angle=0;
+    while(angle!=360){
+      glBegin(GL_POINTS);
+        glVertex3f(x+r*cos(degreeToRadian(angle)), y+r*sin(degreeToRadian(angle)), z);
+      glEnd();
+      angle+=2;
+    }
+  glPopMatrix();
 }
 
 GLUquadric* qobj;
@@ -142,8 +156,8 @@ public:
     float new_y = 0;  // no motion along the y-axis
     float new_x = speed_x * T; // x-axis is the horizontal direction
     // rotate back by -direction along the negative axis
-    current_x = new_x * cos(degreeToRadian(direction));
-    current_y = 0 - new_x * sin(degreeToRadian(direction));
+    current_x = new_x * cos(degreeToRadian(0-direction));
+    current_y = 0 - new_x * sin(degreeToRadian(0-direction));
     current_z = new_z;
     // translate back the origin
     current_x += initial_x;
@@ -159,7 +173,7 @@ public:
       // check if the bullet is inside the base region of the other tank
       if(current_z <= target_z){
         // check if the bullet has entered in the vertical height region or not
-        std::cout<<"Bullet hit the other tank\n\n";
+        std::cout<<"OPPONENT tank hit by bullet \n\n";
         reset=1;
         moving = false;
         flag_for_score = tankNumber;
@@ -168,12 +182,14 @@ public:
           glColor3f(1.0,0.0,0.0);
           gluSphere(qobj,2.0,2000,2000);
         glPopMatrix();
+        sleep(1);
+        drawCircle(current_x,current_y,current_z);
         return;
       }
     }
     if(current_z<= 0-ZDEPTH+0.5){
       /* check if the bullet has hit the ground or not */
-      std::cout<<"Bullet hit the GROUND\n\n";
+      std::cout<<"GROUND hit by the bullet\n\n";
       reset=1;
       moving=false;
       glPushMatrix();
@@ -181,6 +197,8 @@ public:
         glColor3f(1.0,0.0,0.0);
         gluSphere(qobj,2.0,2000,2000);
       glPopMatrix();
+      sleep(1);
+      drawCircle(current_x,current_y,current_z);
       return;
     }
     glPushMatrix();
@@ -600,7 +618,7 @@ void drawBase(){
   glPushMatrix();
   glTranslatef(0.0,0.0,0-ZDEPTH);
   glScalef(200.0, 150.0, 1.0);
-  glColor3f(0.33, 0.13, 0.01);
+  glColor3f(0.66, 0.69, 0.49);
   glutSolidCube (1.0);
   glPopMatrix();
 }
