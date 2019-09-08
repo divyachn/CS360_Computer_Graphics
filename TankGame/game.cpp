@@ -630,7 +630,12 @@ void display(void) {
    glLoadIdentity ();
   //  gluLookAt(camera_x, 1.0f, camera_z, camera_x+losx, 1.0f,  camera_z+losz, 0.0f, 1.0f,  0.0f);
    glTranslatef(0.0f, 0.0f, -cRadius);
+   // for different rotations check on this line, change the vector about which rotation should take place
    glRotatef(xrot,1.0,0.0,0.0);
+   glRotatef(yrot,0.0,1.0,0.0);  //rotate our camera on they-axis (up and down)
+   glTranslated(-xpos,0.0f,-zpos); //translate the screen to the position of our camera
+   angle++;
+    
    // modeling transformation
    if(gameBegin==true) gameBeginScreen();
    else if(gameOver==false){
@@ -663,9 +668,6 @@ void display(void) {
     writeText(0.89, 0.95, 0.17, 50.0, 60.0, 0-ZDEPTH+0.5, "B");
     tank1.renderBullet();
     tank2.renderBullet();
-    glRotatef(yrot,0.0,1.0,0.0);  //rotate our camera on they-axis (up and down)
-    glTranslated(-xpos,0.0f,-zpos); //translate the screen to the position of our camera
-    angle++;
   } else{
     gameOverScreen();
   }
