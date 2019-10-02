@@ -27,4 +27,5 @@ LeftArrow : Move camera in XZ plane counter-clockwise
 RightArrow : Move camera in XZ plane clockwise
 
 UpArrow : Move camera above the XZ plane
+
 DownArrow : Move camera below the XZ plane
