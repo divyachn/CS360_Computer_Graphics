@@ -7,10 +7,9 @@
 varying vec4 position;  // position of the vertex (and fragment) in world space
 varying vec3 varyingNormalDirection;  // surface normal vector in world space
 varying vec4 color;
+varying vec2 tex_coord;
 
-//varying vec2 tex_coord;
-
-//uniform sampler2D tex;
+uniform sampler2D tex;
 uniform mat4 m, v, p;
 uniform mat4 v_inv;
 
@@ -87,7 +86,7 @@ void main() {
     }
   }
 
-  //gl_FragColor = 0.5*vec4(ambientLighting + diffuseReflection + specularReflection, 1.0) + 0.5*texture2D(tex, tex_coord);
+  gl_FragColor = 0.5*vec4(ambientLighting + diffuseReflection + specularReflection, 1.0) + 0.5*texture2D(tex, tex_coord);
   //gl_FragColor = vec4(ambientLighting + diffuseReflection + specularReflection, 1.0) * texture2D(tex, tex_coord);
-  gl_FragColor = vec4(ambientLighting + diffuseReflection + specularReflection, 1.0);
+  //gl_FragColor = vec4(ambientLighting + diffuseReflection + specularReflection, 1.0);
 }
