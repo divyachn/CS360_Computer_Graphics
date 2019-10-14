@@ -533,7 +533,7 @@ int main (int argc, char **argv) {
     glutInitDisplayMode (GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize (1000,600);
     glutInitWindowPosition (120, 50);
-    glutCreateWindow ("Shaders included");
+    glutCreateWindow ("RM101 modeled");
 
     GLenum glew_status = glewInit();
     if (glew_status != GLEW_OK) {

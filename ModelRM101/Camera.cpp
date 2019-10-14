@@ -22,7 +22,7 @@ public:
   Camera(){
     // constructor
     pos.x=0.0; pos.y=0.0; pos.z=0.0;
-    angle_y=00.0; angle_z=0.0;
+    angle_y=90.0; angle_z=0.0;
     pos_increment = 5.0;
     angle_increment = 90.0;
   }
