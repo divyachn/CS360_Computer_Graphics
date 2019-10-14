@@ -1,8 +1,10 @@
-The code uses illumination model, shader programming and texture maping t0 model the lecture hall - RM101.
+The code uses illumination model, shader programming and texture maping to model the lecture hall - RM101.
 
 Run the file:
 
 $ ./make.sh
+
+$ ./room
 
 Camera can move along X,Y,Z direction and about the Y,Z axis
 
