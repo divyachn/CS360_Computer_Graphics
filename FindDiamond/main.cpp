@@ -25,7 +25,8 @@ using glm::vec2;
 
 #define GAME_BEGIN 1
 #define GAME_OVER 2
-#define GAME_IN_PROGRESS 3
+#define GAME_WON 3
+#define GAME_IN_PROGRESS 4
 
 int gameStatus=1; // by default game starts fresh
 
@@ -172,7 +173,6 @@ vector <vec3> const_z(float x_max, float x_min, float y_max, float y_min, float 
 }
 
 void gameBeginScreen(){
-  cout<<"Game Begins! \n";
   vector <vec2> t = {vec2(0.0, 0.0), vec2(1.0, 0.0), vec2(1.0, 1.0), vec2(0.0, 1.0)};
   float z = -20.0;
   vector <vec3> face = const_z(100.0, -100.0, 80.0, -80.0, z);
@@ -186,7 +186,24 @@ void gameBeginScreen(){
 }
 
 void gameOverScreen(){
-  cout<<"Game Over !\n";
+  vector <vec2> t = {vec2(0.1, 0.0), vec2(1.0, 0.0), vec2(1.0, 1.0), vec2(0.1, 1.0)};
+  float z = -20.0;
+  vector <vec3> face = const_z(100.0, -100.0, 80.0, -80.0, z);
+  text = loadBMP_custom((char *) "./images/gameOver.bmp");
+  texturePolygon(face, t, 4);
+  writeText(vec3(0.0, 0.0, 0.0), vec3(-70.0, -70.0, z+0.01), "Press q to quit and r to replay.");
+}
+
+void gameWonScreen(){
+  vector <vec2> t = {vec2(0.0, 0.0), vec2(1.0, 0.0), vec2(1.0, 1.0), vec2(0.0, 1.0)};
+  float z = -20.0;
+  vector <vec3> face = const_z(70.0, 20.0, 50.0, -50.0, z);
+  text = loadBMP_custom((char *) "./images/gameWon.bmp");
+  texturePolygon(face, t, 4);
+  face = const_z(-10.0, -90.0, 50.0, -50.0, z);
+  text = loadBMP_custom((char *) "./images/diamond.bmp");
+  texturePolygon(face, t, 4);
+  writeText(vec3(0.0, 0.0, 0.0), vec3(-70.0, -70.0, z+0.01), "Press q to quit and r to replay.");
 }
 
 void gameProgressScreen(){
@@ -204,6 +221,9 @@ void display(void) {
         break;
       case GAME_OVER:
         gameOverScreen();
+        break;
+      case GAME_WON:
+        gameWonScreen();
         break;
       case GAME_IN_PROGRESS:
         gameProgressScreen();
